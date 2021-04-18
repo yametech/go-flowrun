@@ -45,7 +45,7 @@ func (s *Step) actionParamsFmt() {
 func (s *Step) generate() string {
 	s.flowDirectionFmt()
 	s.actionParamsFmt()
-	result := fmt.Sprintf(`step %s => (%s) {action="%s"; args=(%s)};`, s.Name, s.flowFmt, s.Action, s.argsFmt)
+	result := fmt.Sprintf(`step %s => (%s) {action="%s"; args=(%s);};`, s.Name, s.flowFmt, s.Action, s.argsFmt)
 	return result
 }
 
