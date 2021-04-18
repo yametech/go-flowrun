@@ -23,6 +23,6 @@ flowrun.Generate()
 Result
 ```
 flow_run  test
-  step step_name1 => (SUCCESS->a | FAIL->done) {action="action_name1"; args=(project="https://github.com/yametech/compass.git", version=3)};
+  step step_name1 => (SUCCESS->a | FAIL->done) {action="action_name1"; args=(project="https://github.com/yametech/compass.git", version=3);};
 flow_run_end
 ```
