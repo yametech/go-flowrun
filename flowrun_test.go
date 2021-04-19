@@ -1,6 +1,7 @@
 package flowrun_test
 
 import (
+	"fmt"
 	"log"
 	"testing"
 
@@ -19,6 +20,7 @@ func TestFlowRunCreate(t *testing.T) {
 	}
 	flowrun.AddStep("step_name1", steps, "action_name1", args)
 	fsl := flowrun.Generate()
+	fmt.Println(fsl)
 	flowrun.Create(fsl)
 }
 

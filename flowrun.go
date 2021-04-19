@@ -41,7 +41,7 @@ func (s *Step) actionParamsFmt() {
 		case reflect.Float32, reflect.Float64:
 			value = fmt.Sprintf(`%f`, value)
 		default:
-			value = fmt.Sprintf(`"%s"`, value.(string))
+			value = fmt.Sprintf("`%s`", value.(string))
 		}
 		s.argsFmt += fmt.Sprintf("%s=%s", key, value)
 	}
