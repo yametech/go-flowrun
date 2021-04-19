@@ -2,7 +2,12 @@ package flowrun
 
 import (
 	"fmt"
+	"log"
+	"net/url"
+	"path"
 	"reflect"
+
+	requests "github.com/levigross/grequests"
 )
 
 type Step struct {
@@ -50,8 +55,9 @@ func (s *Step) generate() string {
 }
 
 type FlowRun struct {
-	Name  string
-	steps []Step
+	EchoerUrl string
+	Name      string
+	steps     []Step
 }
 
 func (f *FlowRun) AddStep(flowRunName string, flowDirection map[string]string, actionName string, actionParams map[string]interface{}) {
@@ -70,4 +76,95 @@ func (f *FlowRun) Generate() string {
 		r += fmt.Sprintf("  %s\n", p)
 	}
 	return fmt.Sprintf("flow_run  %s\n%sflow_run_end", f.Name, r)
+}
+
+func (f *FlowRun) Create(fsl string) bool {
+	ro := &requests.RequestOptions{
+		JSON: map[string]string{
+			"data": fsl,
+		},
+	}
+	// >> request url
+	u, _ := url.Parse(f.EchoerUrl)
+	u.Path = path.Join(u.Path, "action")
+	resp, err := requests.Post(u.String(), ro)
+
+	// >> response
+	if err != nil {
+		log.Println("发送echoer错误: ", err.Error())
+		return false
+	}
+	if resp.StatusCode != 200 {
+		log.Println("echoer: ", resp.String())
+		return false
+	}
+	return true
+}
+
+func (f *FlowRun) Delete(name string, uuid string) bool {
+	// >> request url
+	u, _ := url.Parse(f.EchoerUrl)
+	u.Path = path.Join(u.Path, "flowrun", name, uuid)
+	resp, err := requests.Delete(u.String(), nil)
+
+	// >> response
+	if err != nil {
+		log.Println("发送echoer错误: ", err.Error())
+		return false
+	}
+	if resp.StatusCode != 200 {
+		log.Println("echoer : ", resp.String())
+		return false
+	}
+	return true
+}
+
+func (f *FlowRun) All() interface{} {
+	// >> request url
+	u, _ := url.Parse(f.EchoerUrl)
+	u.Path = path.Join(u.Path, "flowrun")
+	resp, err := requests.Get(u.String(), nil)
+
+	// >> response
+	if err != nil {
+		log.Println("发送echoer错误: ", err.Error())
+		return nil
+	}
+	if resp.StatusCode != 200 {
+		log.Println("echoer: ", resp.String())
+		return nil
+	}
+
+	// >> decode
+	var result interface{}
+	if err := resp.JSON(&result); err != nil {
+		log.Println("echoer 序列化错误: ", err.Error())
+		return nil
+	}
+	return result
+}
+
+func (f *FlowRun) One(name string) interface{} {
+	// >> request url
+	u, _ := url.Parse(f.EchoerUrl)
+	u.Path = path.Join(u.Path, "flowrun", name)
+	resp, err := requests.Get(u.String(), nil)
+
+	// >> response
+	if err != nil {
+		log.Println("发送echoer错误: ", err.Error())
+		return nil
+	}
+	if resp.StatusCode != 200 {
+		log.Println("echoer : ", resp.String())
+		return false
+	}
+
+	// >> decode
+	var result interface{}
+	if err := resp.JSON(&result); err != nil {
+		log.Println("echoer 序列化错误: ", err.Error())
+		return nil
+	}
+	return result
 }
