@@ -9,7 +9,7 @@ import (
 
 func TestActionCreate(t *testing.T) {
 	action := &flowrun.Action{
-		EchoerUrl:        "http://10.200.100.200:8080",
+		EchoerUrl:        "http://localhost:8080",
 		Name:             "test",
 		InterfaceUrl:     "http://hello.com",
 		ReturnStatusList: []string{"Y", "N"},
@@ -26,21 +26,21 @@ func TestActionCreate(t *testing.T) {
 
 func TestActionAll(t *testing.T) {
 	action := &flowrun.Action{
-		EchoerUrl: "http://10.200.100.200:8080",
+		EchoerUrl: "http://localhost:8080",
 	}
 	log.Println(action.All())
 }
 
 func TestActionOne(t *testing.T) {
 	action := &flowrun.Action{
-		EchoerUrl: "http://10.200.100.200:8080",
+		EchoerUrl: "http://localhost:8080",
 	}
 	log.Println(action.One("test"))
 }
 
 func TestActionDelete(t *testing.T) {
 	action := &flowrun.Action{
-		EchoerUrl: "http://10.200.100.200:8080",
+		EchoerUrl: "http://localhost:8080",
 	}
 	action.Delete("test", "zJFP6xmfi1rnwfrhDi1")
 }

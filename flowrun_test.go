@@ -24,21 +24,21 @@ func TestFlowRunCreate(t *testing.T) {
 
 func TestFlowRunAll(t *testing.T) {
 	flowrun := &flowrun.FlowRun{
-		EchoerUrl: "http://10.200.100.200:8080",
+		EchoerUrl: "http://localhost:8080",
 	}
 	log.Println(flowrun.All())
 }
 
 func TestFlowRunOne(t *testing.T) {
 	flowrun := &flowrun.FlowRun{
-		EchoerUrl: "http://10.200.100.200:8080",
+		EchoerUrl: "http://localhost:8080",
 	}
 	log.Println(flowrun.One("apollo_run_APYCpQEd"))
 }
 
 func TestFlowRunDelete(t *testing.T) {
 	flowrun := &flowrun.FlowRun{
-		EchoerUrl: "http://10.200.100.200:8080",
+		EchoerUrl: "http://localhost:8080",
 	}
 	log.Println(flowrun.Delete("apollo_run_APYCpQEd", "uuid:NcfT73nfiLtnwfrhDi1"))
 }
