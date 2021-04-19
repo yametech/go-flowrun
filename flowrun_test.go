@@ -16,12 +16,12 @@ func TestFlowRunCreate(t *testing.T) {
 		"SUCCESS": "a", "FAIL": "done",
 	}
 	args := map[string]interface{}{
-		"project": "https://github.com/yametech/compass.git", "version": 3,
+		"project": "https://github.com/yametech/compass.git", "version": 1234.4444231421413,
 	}
 	flowrun.AddStep("step_name1", steps, "action_name1", args)
 	fsl := flowrun.Generate()
 	fmt.Println(fsl)
-	flowrun.Create(fsl)
+	// flowrun.Create(fsl)
 }
 
 func TestFlowRunAll(t *testing.T) {
