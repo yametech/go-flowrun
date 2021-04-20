@@ -86,7 +86,7 @@ func (f *FlowRun) Create(fsl string) bool {
 	}
 	// >> request url
 	u, _ := url.Parse(f.EchoerUrl)
-	u.Path = path.Join(u.Path, "action")
+	u.Path = path.Join(u.Path, "flowrun")
 	resp, err := requests.Post(u.String(), ro)
 
 	// >> response

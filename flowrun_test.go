@@ -10,7 +10,8 @@ import (
 
 func TestFlowRunCreate(t *testing.T) {
 	flowrun := &flowrun.FlowRun{
-		Name: "test",
+		EchoerUrl: "http://localhost:8080",
+		Name:      "test",
 	}
 	steps := map[string]string{
 		"SUCCESS": "a", "FAIL": "done",
@@ -21,7 +22,7 @@ func TestFlowRunCreate(t *testing.T) {
 	flowrun.AddStep("step_name1", steps, "action_name1", args)
 	fsl := flowrun.Generate()
 	fmt.Println(fsl)
-	// flowrun.Create(fsl)
+	flowrun.Create(fsl)
 }
 
 func TestFlowRunAll(t *testing.T) {
