@@ -42,7 +42,14 @@ func (s *Step) actionParamsFmt() {
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 			value = fmt.Sprintf(`%d`, value)
 		case reflect.Float32, reflect.Float64:
-			value = fmt.Sprintf(`"%s"`, fmt.Sprint(value))
+			n := int(value.(float64))
+			println(n)
+			println(value)
+			if float64(int(value.(float64))) == float64(value.(float64)) {
+				value = fmt.Sprintf(`%d`, int(value.(float64)))
+			} else {
+				value = fmt.Sprintf(`"%s"`, fmt.Sprint(value))
+			}
 		case reflect.String:
 			if strings.Contains(value.(string), `"`) {
 				value = fmt.Sprintf("`%s`", value)
