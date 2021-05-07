@@ -20,7 +20,10 @@ func TestFlowRunCreate(t *testing.T) {
 		"codeType":    "web",
 		"output":      "registry-d.ym/fengdr",
 		"serviceName": "devopsui",
-		"projectFile": "",
+		"projectFile": map[string]interface{}{
+			"a":1,
+			"b":2,
+		},
 		"projectPath": "",
 		"retryCount":  15.0,
 		"branch":      "master",

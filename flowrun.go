@@ -44,7 +44,7 @@ func (s *Step) actionParamsFmt() {
 				log.Println("转换FSL失败: ", err.Error())
 				continue
 			}
-			value = fmt.Sprintf("`%s`", fmt.Sprint(valueByte))
+			value = fmt.Sprintf("`%s`", valueByte)
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 			value = fmt.Sprintf(`%d`, value)
 		case reflect.Float32, reflect.Float64:
