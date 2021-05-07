@@ -1,6 +1,7 @@
 package flowrun
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/url"
@@ -38,7 +39,12 @@ func (s *Step) actionParamsFmt() {
 		}
 		switch reflect.TypeOf(value).Kind() {
 		case reflect.Map:
-			value = fmt.Sprintf("`%s`", fmt.Sprint(value))
+			valueByte, err := json.Marshal(value)
+			if err != nil {
+				log.Println("转换FSL失败: ", err.Error())
+				continue
+			}
+			value = fmt.Sprintf("`%s`", fmt.Sprint(valueByte))
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 			value = fmt.Sprintf(`%d`, value)
 		case reflect.Float32, reflect.Float64:
